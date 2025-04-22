@@ -1,0 +1,39 @@
+name: Hello World Workflow
+
+# Definiert, wann der Workflow ausgeführt werden soll
+on:
+  # Wird ausgelöst, wenn ein Push auf den main-Branch erfolgt
+  push:
+    branches: [ main ]
+  # Wird auch ausgelöst, wenn ein Pull Request zum main-Branch erstellt wird
+  pull_request:
+    branches: [ main ]
+  # Ermöglicht manuelle Ausführung des Workflows über die GitHub-Oberfläche
+  workflow_dispatch:
+
+# Ein Workflow besteht aus einem oder mehreren Jobs
+jobs:
+  # Dieser Job heißt "hello"
+  hello:
+    # Definiert, auf welchem Betriebssystem der Job ausgeführt werden soll
+    runs-on: ubuntu-latest
+    
+    # Ein Job besteht aus einer Reihe von Schritten
+    steps:
+      # Schritt 1: Repository auschecken, damit der Workflow darauf zugreifen kann
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      
+      # Schritt 2: Gib "Hello, World!" aus
+      - name: Sage Hallo
+        run: echo "Hello, World! Willkommen bei GitHub Actions!"
+      
+      # Schritt 3: Zeige Datum und Uhrzeit an
+      - name: Zeige Datum
+        run: echo "Aktuelles Datum ist $(date)"
+      
+      # Schritt 4: Zeige Repository-Informationen
+      - name: Zeige Repository-Info
+        run: |
+          echo "Repository: ${{ github.repository }}"
+          echo "Branch: ${{ github.ref }}"
